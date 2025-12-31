@@ -1,0 +1,22 @@
+# Python environments and caches
+venv/
+venv311/
+__pycache__/
+*.pyc
+
+# Node artifacts
+node_modules/
+frontend/dist/
+
+# Streamlit cache
+.streamlit/
+
+# Exclude images (user requested deploy without images)
+**/*.jpg
+**/*.jpeg
+**/*.png
+
+# IDE/project files
+.vscode/
+.DS_Store
+

@@ -1,0 +1,21 @@
+# virtual environment
+venv/
+venv311/
+
+# python cache
+__pycache__/
+*.pyc
+
+# ML models
+*.h5
+*.keras
+*.pb
+*.onnx
+mask_detection_saved_model/
+
+# datasets
+data/
+datasets/
+
+# node
+node_modules/
