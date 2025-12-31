@@ -1,0 +1,8 @@
+{
+  "model_path": "model/mask_detector.h5",
+  "host": "0.0.0.0",
+  "port": 8000,
+  "enable_frontend": true,
+  "allowed_origins": ["*"],
+  "images_dir": "E:\\Mask_detection\\mask_detection\\Mask_detection_images\\dataset"
+}
