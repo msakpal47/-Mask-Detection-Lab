@@ -4,7 +4,13 @@ import time
 import os
 import random
 from pathlib import Path
-from mask_detection.config import load_config, BASE_DIR
+import sys
+try:
+    from .config import load_config, BASE_DIR
+except Exception:
+    ROOT_DIR = Path(__file__).resolve().parent.parent
+    sys.path.insert(0, str(ROOT_DIR))
+    from mask_detection.config import load_config, BASE_DIR
 
 CFG = load_config()
 _mp = Path(CFG.get("model_path", ""))
