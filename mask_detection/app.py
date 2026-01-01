@@ -239,7 +239,7 @@ def predict_on_image(image_rgb: np.ndarray):
     except Exception:
         faces = []
     used_labels = MODEL_LABELS
-    if faces:
+    if len(faces) > 0:
         try:
             from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
         except Exception:
