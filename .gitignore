@@ -15,10 +15,8 @@ frontend/dist/
 **/*.jpg
 **/*.jpeg
 **/*.png
-**/*.webp
-# Exclude entire dataset/images directory
-mask_detection/Mask_detection_images/
 
 # IDE/project files
 .vscode/
 .DS_Store
+
