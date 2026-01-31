@@ -1,4 +1,10 @@
-const API = "http://localhost:8000"
+const API =
+  (typeof import.meta !== "undefined" &&
+    import.meta.env &&
+    import.meta.env.VITE_API_URL) ||
+  (typeof window !== "undefined" && window.location
+    ? window.location.origin
+    : "http://localhost:8000")
 
 export async function health() {
   const res = await fetch(API + "/health").catch(() => null)

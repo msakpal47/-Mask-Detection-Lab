@@ -1,0 +1,81 @@
+Builder
+
+Thought process
+
+Streamlit (Quick)
+
+- Open a terminal in e:\Mask_detection.
+- Create and activate a virtual environment (optional, recommended).
+  
+  ```
+  python -m venv venv
+  .\venv\Scripts\activate
+  ```
+- Install dependencies.
+  
+  ```
+  pip install -r requirements.txt
+  ```
+- Run the Streamlit app.
+  
+  ```
+  streamlit run streamlit_app.py
+  ```
+- Open http://localhost:8501 in your browser.
+- In the sidebar:
+  
+  - Set Stream URL to your camera stream (e.g., IP Webcam: http:// <phone-ip>:8080/video).</phone-ip>
+  - Toggle Mirror video if needed.
+  - Use the Upload tab to test with an image.
+FastAPI Backend
+
+- In e:\Mask_detection, ensure the same virtual environment is active.
+- Run the backend.
+  
+  ```
+  python app.py
+  ```
+- Open http://localhost:8000 in your browser.
+- Endpoints:
+  
+  - Upload image: POST /predict-image
+  - List images: GET /images
+  - Static assets (if web directory exists): /assets, /model, /static
+Frontend (React)
+
+- Change to the frontend folder.
+  
+  ```
+  cd frontend
+  npm install
+  npm run dev
+  ```
+- Open the shown local URL (usually http://localhost:5173 ).
+- For a production build:
+  
+  ```
+  npm run build
+  ```
+Configuration
+
+- Model path and options are in config.json . Default model path: models/mask_detector.h5.
+- If you have a different model location, update model_path there or set environment variable MODEL_PATH before running.
+Camera Stream Setup
+
+- Android IP Webcam example:
+  - Install “IP Webcam” app.
+  - Connect phone and PC to the same Wi‑Fi.
+  - Start server in the app; note the phone IP.
+  - Use http:// <phone-ip>:8080/video in the Streamlit sidebar.</phone-ip>
+- If OpenCV isn’t available, the app switches to snapshot mode automatically using /shot.jpg.
+Stopping and Restarting
+
+- Stop Streamlit or FastAPI with Ctrl+C in the terminal.
+- If a terminal is already running Streamlit, reuse it or stop it before launching another instance.
+Common Issues
+
+- Port blocked: Allow 8501 (Streamlit) or 8000 (FastAPI) through firewall if accessing from another device.
+- Model missing: The app still runs; labels fall back gracefully. For real predictions, ensure models/mask_detector.h5 exists or update model_path in config.
+- Invalid stream URL: The Live tab shows a friendly error; use a reachable URL and ensure both devices share the same network.
+- Pillow not installed for uploads: If image upload ever fails to parse, I can add pillow to requirements and reinstall.
+If you want, I can automate these steps with a small PowerShell script that sets up the venv, installs dependencies, and starts Streamlit.

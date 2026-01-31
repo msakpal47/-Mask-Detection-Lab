@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 import uvicorn
-from .config import load_config, BASE_DIR
+from config import load_config, BASE_DIR
 
 WEB_DIR = BASE_DIR / "web"
 CONFIG = load_config()
@@ -35,6 +35,13 @@ if CONFIG.get("enable_frontend", True) and WEB_DIR.exists():
     else:
         print(f"Mounting assets from {assets_dir}")
         app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="assets")
+    
+    # Serve TFJS model files (frontend expects /model/model.json)
+    model_dir = WEB_DIR / "model"
+    if model_dir.exists():
+        app.mount("/model", StaticFiles(directory=str(model_dir)), name="model")
+    else:
+        print(f"WARNING: Model directory not found at {model_dir}")
     
     # Mount static directory for compatibility (though Vite uses /assets)
     app.mount("/static", StaticFiles(directory=str(WEB_DIR)), name="static")
@@ -66,8 +73,11 @@ LABELS = ["With Mask", "Without Mask", "Improper Mask"]
 def startup_event():
     global model
     try:
+        print(f"Loading model from {MODEL_PATH}...")
         model = _load_model()
+        print("Model loaded successfully.")
     except Exception as e:
+        print(f"Error loading model: {e}")
         model = None
 
 @app.get("/")
@@ -196,4 +206,4 @@ def script_js():
     return FileResponse(str(p))
 
 if __name__ == "__main__":
-    uvicorn.run("mask_detection.server:app", host=CONFIG.get("host", "0.0.0.0"), port=int(CONFIG.get("port", 8000)), reload=True)
+    uvicorn.run("app:app", host=CONFIG.get("host", "0.0.0.0"), port=int(CONFIG.get("port", 8000)), reload=True)

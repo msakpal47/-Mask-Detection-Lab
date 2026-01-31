@@ -5,10 +5,10 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent
 
 DEFAULTS = {
-    "model_path": str(BASE_DIR / "model" / "mask_detector.h5"),
+    "model_path": str(BASE_DIR / "models" / "mask_detector.h5"),
     "host": "0.0.0.0",
     "port": 8000,
-    "enable_frontend": False,
+    "enable_frontend": True,
     "allowed_origins": ["*"],
     "images_dir": ""
 }

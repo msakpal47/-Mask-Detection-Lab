@@ -1,5 +1,5 @@
 {
-  "model_path": "model/mask_detector.h5",
+  "model_path": "models/mask_detector.h5",
   "host": "0.0.0.0",
   "port": 8000,
   "enable_frontend": true,

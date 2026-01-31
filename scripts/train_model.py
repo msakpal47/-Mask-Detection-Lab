@@ -9,9 +9,9 @@ from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2, preprocess_i
 from tensorflow.keras.optimizers import Adam
 
 # Paths (configurable via env; defaults to repository layout)
-BASE = Path(__file__).parent
+BASE = Path(__file__).parent.parent
 TRAIN_PATH = Path(os.getenv("DATASET_DIR", BASE / "dataset"))
-MODEL_DIR = Path(os.getenv("MODEL_DIR", BASE / "model"))
+MODEL_DIR = Path(os.getenv("MODEL_DIR", BASE / "models"))
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
 MODEL_PATH = MODEL_DIR / "mask_detector.h5"
 

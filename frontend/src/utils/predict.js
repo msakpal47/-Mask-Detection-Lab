@@ -1,9 +1,9 @@
 import * as tf from "@tensorflow/tfjs"
 
-const LABELS = ["With Mask", "Without Mask"]
+const LABELS = ["With Mask", "Without Mask", "Improper Mask"]
 
 export async function predictMask(faceCanvas, model) {
-  const textureScore = await computeLowerTexture(faceCanvas)
+  // const textureScore = await computeLowerTexture(faceCanvas)
   const tensor = tf.browser
     .fromPixels(faceCanvas)
     .resizeBilinear([224, 224])
@@ -20,9 +20,12 @@ export async function predictMask(faceCanvas, model) {
   const maxIndex = arr.indexOf(Math.max(...arr))
   const confidence = arr[maxIndex]
   let label = LABELS[maxIndex]
-  if (label === "With Mask" && textureScore > 0.12) {
-    label = "Without Mask"
-  }
+  
+  // Removed texture heuristic that was causing false negatives for textured masks
+  // if (label === "With Mask" && textureScore > 0.12) {
+  //   label = "Without Mask"
+  // }
+  
   return { label, score: confidence }
 }
 

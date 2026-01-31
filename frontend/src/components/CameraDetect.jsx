@@ -25,6 +25,13 @@ export default function CameraDetect({ onBack }) {
   const start = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
     videoRef.current.srcObject = stream;
+    // Ensure video plays
+    try {
+      await videoRef.current.play();
+    } catch (e) {
+      console.error("Video play failed:", e);
+    }
+    
     videoRef.current.onloadedmetadata = async () => {
       setRunning(true);
       await loadFaceModel();

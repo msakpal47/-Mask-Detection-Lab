@@ -4,7 +4,8 @@ let faceModel = null
 
 export async function loadFaceModel() {
   if (!faceModel) {
-    faceModel = await blazeface.load()
+    // Lower threshold to 0.5 to detect faces more easily
+    faceModel = await blazeface.load({ scoreThreshold: 0.5 })
   }
   return faceModel
 }
